@@ -46,33 +46,22 @@ Parameters:
 |CertificatePassword|SecureString|Y|Specifies the password for the imported PFX file in the form of a secure string.|
 
 
-Note: To obtain a PSCredential object, use the ‘Get-Credential’ Cmdlet. For more information, type Get-Help Get-Credential.
+Notes: To obtain a PSCredential object, use the ‘Get-Credential’ Cmdlet. For more information, type Get-Help Get-Credential.
 
 
-Validations:
+Error Messages:
 ----------------------
+| Possible Errors      | Validations |
+|:---|:---|
+|Error!!! login using admin credentials.|Script is executing from non admin PS prompt.|
+|Error!!! [$CertificateFilePath] is invalid.|Certificate Path on Local System is not valid or accessible.|
 
-----------------------------------------------------------------------------------------------------------------------------
-|Sr. No.|Validations					    |Error Message						   |
-----------------------------------------------------------------------------------------------------------------------------
-|1.	|Script is executing from non admin PS prompt.      |Error!!! login using admin credentials.			   |
-|2.	|Certificate Path on Local System is not valid or   |Error!!! [$CertificateFilePath] is invalid.		   |
-|	|accessible.				     	    |				 			           |
-|3.	|The client certificate type is not .PFX format.    |Cannot validate argument on parameter CertificateFilePath.    |
-|	|						    |The certificate must be of '.PFX' format.		           |
-|4.	|Certificate password is incorrect.		    |Certificate Password is Incorrect.			           |
-|5.	|The SIL Collector server does not have required SIL|Required Windows Update(s) are not installed on 	           |	|	|updates installed.				    |[$SilCollectorServer].					   |
-|6.	|The SIL Aggregator Server does not have Software   |Error!!! Software Inventory Logging Aggregator 1.0 is not     |
-|	|Inventory Logging Aggregator 1.0 installed.	    |installed on [$AggregatorServer].		                   |
-|7.	|The SIL Aggregator Server is not accessible.	    |Error in connecting to Aggregator server[$AggregatorServer].  | 
-|8.	|The SIL Collector server is not accessible.        |Error in connecting to remote server [$SilCollectorServer].   |
-----------------------------------------------------------------------------------------------------------------------------
 
-  
-Task performed:
----------------
+Task performed by Script:
+-------------------------
 
-1. Update TrustedHosts settings, if needed, of current Local Computer by adding the SIL Collector server and SIL Aggregator Server to trusted hosts list.
+1. Update TrustedHosts settings, if needed, of current Local Computer by adding the SIL Collector server and SIL Aggregator 
+Server to trusted hosts list.
 2. Copy the pfx client certificate to SIL Collector server.
 3. Install Certificate at  \localmachine\MY (Local Computer -> Personal) at SIL Collector server.
 4. Get the ‘TargetURI’ value by running the PowerShell cmdlet ‘Get-SILAggregator’ on SIL Aggregator server .
@@ -87,9 +76,12 @@ Task performed:
 
 Out of Scope:
 -------------
-1. Polling account setup. The script will not setup any poll account for parent HOST server. The hoster has to explicitely run Add-SILVMHost command to add the host for Polling.
+1. Polling account setup. The script will not setup any poll account for parent HOST server. The hoster has to explicitely 
+run Add-SILVMHost command to add the host for Polling.
 2. Logging – The output will be displayed to console only. No logging will be done in either text file or event viewer. 
 3. Localization.
+  
+
 
 
 
