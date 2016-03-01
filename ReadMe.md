@@ -207,25 +207,19 @@ To make sure that the given enterprise cert is installed in all VMs created usin
    * Set-ItemProperty "HKLM:\REMOTEPC\Microsoft\Windows\CurrentVersion\RunOnce\" -Name "PoshStart" -Value "C:\Scripts\EnableSIL.cmd"
 
 ####Part 2
-Load and edit Software Inventory Logging registry entries – 
+Loads and edits Software Inventory Logging registry entries – 
 \HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\SoftwareInventoryLogging. 
 
-----------------------------------------------------------------------------------------------------------------------------
-|Function				|Value Name		|Data		|Corresponding Cmdlet 			   | |					|			|		|(available only in the runningOS)	   |
-----------------------------------------------------------------------------------------------------------------------------
-|Start/Stop Feature			|CollectionState	|1 or 0		|Start-SilLogging, Stop-SilLogging	   |
-|					|			|		|					   |
-|Specifies target aggregation		|TargetUri		|String		|Set-SilLogging -TargetURI		   |
-|point on the network			|			|		|					   |
-|					|			|		|					   |
-|Specifies Certificate Thumbprint or	|CertificateThumbprint	|String		|Set-SilLogging -CertificateThumbprint     |
-|Hash of the certificate used for SSL	|			|		|					   |
-|authentication for the target webserver|			|		|					   |
-|					|			|		|					   |	|Specifies the date and time that the	|CollectionTime		|Default:	|Set-SilLogging -TimeOfDay		   | 
-|feature should start (if value set is	|			|2000-01-01T03	|					   |
-|in the future according to local system|			|:00:00		|				           |
-|time)					|			|		|				           |
-----------------------------------------------------------------------------------------------------------------------------			
+|Function|Value Name|Data|Corresponding Cmdlet (available only in running OS)|
+|:---|:---|:---|:---|
+|Start/Stop Feature|CollectionState|1 or 0|Start-SilLogging, Stop-SilLogging|
+|Specifies SIL Aggregator on the network|TargetUri|String|Set-SilLogging -TargetURI|
+|Specifies certificate thumbprint of the certificate used for SSL authentication at the SIL Aggregator|CertificateThumbprint|String|Set-SilLogging -CertificateThumbprint|
+|Optionally specifies date and time for start (if in the future)|CollectionTime|Default: start now|Set-SilLogging -TimeOfDay|
+
+More information on configuration settings for SIL can be found here: https://technet.microsoft.com/en-us/library/dn383584.aspx
+
+		
 9. Set the following Registry key values in VHD as following – 
    CollectionState		:1
    TargetUri			:Value received from Step 3
