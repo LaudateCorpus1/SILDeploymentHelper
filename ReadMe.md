@@ -1,32 +1,29 @@
-Important Note:
---------------- 
-The term ‘Collector’ refers to the Windows Server feature Software Inventory Logging (SIL) component of the overall SIL framework.
+#Important Note:
+The term â€˜Collectorâ€™ refers to the Windows Server feature Software Inventory Logging (SIL) component of the overall SIL framework.
 
-======================
-1. Enable-SILCollector
-======================
+# Enable-SILCollector
 
 The function to setup a remote SIL Collector for publishing inventory data to Aggregator.
 
 This function will be used by HOSTERS to simplify the SIL and SIL Aggregator usage by helping him enable and configure SIL Collectors and SIL Aggregator and to get accurate inventory data.
 
-Prerequisites:
---------------
+## Prerequisites
+
 
 1. PowerShell remoting must be enabled on both the SIL Aggregator server and the SIL Collector server.
-2. Current user must have Administrator rights on both the SIL Aggregator server and SIL Collector server.
-3. Current user must be able to execute SIL Aggregator PowerShell cmdlets remotely from current server. This script will run    two following SIL Aggregator cmdlets remotely – 
-   a) Get-SILAggregator – to get the ‘TargetUri’ value
-   b) Set-SILAggregator -  to set the certificate thumbprint 
-4. The SIL Collector server has required SIL updates instaled – 
-   a) For Windows Server 2012 R2
-      KB3000850, Nov 2014 
-      KB3060681, June 2015
-   b) For Windows Server 2012 
-      KB3119938 
-   c) For Windows Server 2008 R2 SP1
-      KB3109118
-5. The client certificate type is .PFX and not of any other format.
+1. Current user must have Administrator rights on both the SIL Aggregator server and SIL Collector server.
+1. Current user must be able to execute SIL Aggregator PowerShell cmdlets remotely from current server. This script will run    two following SIL Aggregator cmdlets remotely â€“ 
+  1. Get-SILAggregator â€“ to get the â€˜TargetUriâ€™ value
+  1. Set-SILAggregator -  to set the certificate thumbprint 
+1. The SIL Collector server has required SIL updates instaled
+  1. For Windows Server 2012 R2
+    * KB3000850, Nov 2014 
+    * KB3060681, June 2015
+  1. For Windows Server 2012 
+    * KB3119938 
+  1. For Windows Server 2008 R2 SP1
+    * KB3109118
+1. The client certificate type is .PFX and not of any other format.
 
 Parameters:
 ------------------
@@ -36,12 +33,12 @@ Parameters:
 ----------------------------------------------------------------------------------------------------------------------------
 |1.	|SilCollectorServer	      |string      |Y	    |Specifies a remote server to be enabled and configured for	   |	|	|	   	      	      |            |        |Software Inventory Logging.                                   |
 |2.	|SilCollectorServerCredential |PSCredential|N       |Specifies the credentials that allow this script to connect to| |	|			      |		   |        |the remote SIL Collector server.                              |
-|	|			      |		   | 	    |To obtain a PSCredential object, use the ‘Get-Credential’     |	|	|		    	      |            |        |cmdlet.		                                           |
+|	|			      |		   | 	    |To obtain a PSCredential object, use the â€˜Get-Credentialâ€™     |	|	|		    	      |            |        |cmdlet.		                                           |
 |	|			      |		   |	    |For more information, type Get-Help Get-Credential.           |
 |3.	|SilAggregatorServer	      |String      |Y	    |Specifies the SIL Aggregator server.                          |
 |	|			      |		   |        |This server must have Software Inventory Logging Aggregator   |	|	|		   	      |	           |        |1.0 installed.                                                |
 |4.	|SilAggregatorServerCredential|PSCredential|N	    |Specifies the credentials that allow this script to connect to| |	|			      |		   |	    |the remote SIL Aggregator server.                             |
-|	|			      |		   |	    |To obtain a PSCredential object, use the ‘Get-Credential’     |	|	|		   	      |	           |	    |cmdlet.                                                       |
+|	|			      |		   |	    |To obtain a PSCredential object, use the â€˜Get-Credentialâ€™     |	|	|		   	      |	           |	    |cmdlet.                                                       |
 |	|			      |		   |	    |For more information, type Get-Help Get-Credential.           |
 |5.	|CertificateFilePath	      |String	   |Y	    |Specifies the path for the PFX file.                          |
 |6.	|CertificatePassword	      |SecureString|Y	    |Specifies the password for the imported PFX file in the form  |	|	|		   	      |        	   |        |of a secure string.		                           |
@@ -73,12 +70,12 @@ Task performed:
 1. Update TrustedHosts settings, if needed, of current Local Computer by adding the SIL Collector server and SIL Aggregator Server to trusted hosts list.
 2. Copy the pfx client certificate to SIL Collector server.
 3. Install Certificate at  \localmachine\MY (Local Computer -> Personal) at SIL Collector server.
-4. Get the ‘TargetURI’ value by running the PowerShell cmdlet ‘Get-SILAggregator’ on SIL Aggregator server .
+4. Get the â€˜TargetURIâ€™ value by running the PowerShell cmdlet â€˜Get-SILAggregatorâ€™ on SIL Aggregator server .
 5. Get the certificate thumbprint value from the provided .PFX certificate file.
-6. Confgure SIL on SIL Collector server by – 
-   1) Run ‘Set-SILLogging’ with parameters – ‘TargetUri’, ‘CertificateThumbprint’ and ‘TimeOfDay’
-   2) Run ‘Start-SILLogging’ 
-7. Run ‘Set-SILAggregator’ on SIL Aggregator server to register certificate thumbprint from step 5 above.
+6. Confgure SIL on SIL Collector server by â€“ 
+   1) Run â€˜Set-SILLoggingâ€™ with parameters â€“ â€˜TargetUriâ€™, â€˜CertificateThumbprintâ€™ and â€˜TimeOfDayâ€™
+   2) Run â€˜Start-SILLoggingâ€™ 
+7. Run â€˜Set-SILAggregatorâ€™ on SIL Aggregator server to register certificate thumbprint from step 5 above.
 8. Delete the PFX certificate which was copied earlier from SIL Collector server.
 9. Validate the SIL configuration by running Publish-SILData cmdlet on remote computer.
 10. Revert the TrustedHosts settings updated in step 1.
@@ -86,7 +83,7 @@ Task performed:
 Out of Scope:
 -------------
 1. Polling account setup. The script will not setup any poll account for parent HOST server. The hoster has to explicitely run Add-SILVMHost command to add the host for Polling.
-2. Logging – The output will be displayed to console only. No logging will be done in either text file or event viewer. 
+2. Logging â€“ The output will be displayed to console only. No logging will be done in either text file or event viewer. 
 3. Localization.
 
 
@@ -100,22 +97,22 @@ The function to setup Software Inventory Logging in a Virtual Hard Disk.
 
 This function can be used to setup Software Inventory Logging in a Vurtual Hard Disk so that all VMs created using this configured VHD has SIL configured.
 
-The practical uses for this are intended to cover both ‘gold image’ setup for wide deployment across data centers, as well as configuring end user images going from a premises to a cloud deployment.
+The practical uses for this are intended to cover both â€˜gold imageâ€™ setup for wide deployment across data centers, as well as configuring end user images going from a premises to a cloud deployment.
 
 Design:
 -------
-Configuring SIL in a VHD involves two parts –
-Part 1 – Ensure a given enterprise cert is installed on every VM created using the VHD to make SIL work on the VM.
-Part 2 – Modify the SIL Registry keys in the VHD to enable and configure SIL.
+Configuring SIL in a VHD involves two parts â€“
+Part 1 â€“ Ensure a given enterprise cert is installed on every VM created using the VHD to make SIL work on the VM.
+Part 2 â€“ Modify the SIL Registry keys in the VHD to enable and configure SIL.
 
 Prerequisites:
 --------------
 1. PowerShell remoting must be enabled on the SIL Aggregator server.
 2. Current user must have Administrator rights the SIL Aggregator server.
-3. Current user must be able to execute SIL Aggregator PowerShell cmdlets remotely from current server. This script will run    two following SIL Aggregator cmdlets remotely – 
-   a) Get-SILAggregator – to get the ‘TargetUri’ value
+3. Current user must be able to execute SIL Aggregator PowerShell cmdlets remotely from current server. This script will run    two following SIL Aggregator cmdlets remotely â€“ 
+   a) Get-SILAggregator â€“ to get the â€˜TargetUriâ€™ value
    b) Set-SILAggregator -  to set the certificate thumbprint 
-4. The VHD has required SIL updates instaled – 
+4. The VHD has required SIL updates instaled â€“ 
    a) For Windows Server 2012 R2
       KB3000850 Nov 2014 
       KB3060681 June 2015
@@ -138,7 +135,7 @@ Parameters:
 |3.	|CertificatePassword	      |SecureString|Y	    |Specifies the password for the imported PFX file in the form  | |	|			      |		   |	    |of a secure string.					   |
 |4.	|SilAggregatorServer	      |String	   |Y	    |Specifies the SIL Aggregator server. This server must have    | |	|			      |		   |	    |Software Inventory Logging Aggregator 1.0  installed.	   |
 |5.	|SilAggregatorServerCredential|PSCredential|N	    |Specifies the credentials that allow this script to connect to| |	|			      |		   | 	    |the remote SIL Aggregator server.				   |
-|	|			      |		   |	    |To obtain a PSCredential object, use the ‘Get-Credential’     | |	|			      |		   |	    |cmdlet. For more information, type Get-Help Get-Credential.   |
+|	|			      |		   |	    |To obtain a PSCredential object, use the â€˜Get-Credentialâ€™     | |	|			      |		   |	    |cmdlet. For more information, type Get-Help Get-Credential.   |
 ----------------------------------------------------------------------------------------------------------------------------
 
 Validations:
@@ -162,24 +159,24 @@ Validations:
 |9.	|The SIL Aggregator Server is not accessible.	    |Error in connecting to Aggregator server			   |
 |	|						    |[$SilAggregatorServer].			                   | 
 |10.	|VHD File is in use.				    |VHDFile is being used by another process.			   | 
-|11.	|VHD File doesn’t have Software Inventory Logging   |Software Inventory Logging feature is not found. The VHD may  |
+|11.	|VHD File doesnâ€™t have Software Inventory Logging   |Software Inventory Logging feature is not found. The VHD may  |
 |	|feature.					    |have the Operating System which does not support SIL. 	   |
 ----------------------------------------------------------------------------------------------------------------------------
 
 Tasks performed:
 ---------------- 
 
-• Part 1 
-To make sure that the given enterprise cert is installed in all VMs created using the SIL configured VHD, this script modifies the ‘RunOnce’ registry key of the VHD, and sets another dynamically generated script to execute when a Administrator user logs in to the VM first time.
+â€¢ Part 1 
+To make sure that the given enterprise cert is installed in all VMs created using the SIL configured VHD, this script modifies the â€˜RunOnceâ€™ registry key of the VHD, and sets another dynamically generated script to execute when a Administrator user logs in to the VM first time.
 1. Check the certificate Password and get the certificate thumbprint value from the provided .PFX certificate file.
 2. Update TrustedHosts settings of Local Computer by adding the Aggregator Server to trusted hosts list, if required.
-3. Check if Software Inventory Logging Aggregator is installed on Aggregator Server and get the ‘TargetURI’ value by       running the PowerShell cmdlet ‘Get-SILAggregator’ remotely on Aggregator server. 
+3. Check if Software Inventory Logging Aggregator is installed on Aggregator Server and get the â€˜TargetURIâ€™ value by       running the PowerShell cmdlet â€˜Get-SILAggregatorâ€™ remotely on Aggregator server. 
 4. Mount the VHD
    Mount-VHD -Path $VirtualHardDiskPath
 5. Load Registry from VHD 
    $RemoteReg=$DriveLetter + ":\Windows\System32\config\Software"
    REG LOAD 'HKLM\REMOTEPC' $RemoteReg
-6. Copy cert file to VHD at “\Scripts”
+6. Copy cert file to VHD at â€œ\Scriptsâ€
    Copy-Item -Path $CertificateFilePath -Destination $remoteCert
 7. The script will prepare another .cmd file at run time to import certificate in \localmachine\MY (Local Computer ->       Personal) store on the current running system. This script will run automatically on the VM to install certificate using     required parameters. 
 
@@ -189,7 +186,7 @@ To make sure that the given enterprise cert is installed in all VMs created usin
    ## Encrypt SecureString Password for Certificate to be installed
    $encCertPswd = ConvertFrom-SecureString -SecureString $CertificatePassword -Key (1..16) 
 
-   ## Create a command to import certificate and write it on “EnableSIL.cmd” file
+   ## Create a command to import certificate and write it on â€œEnableSIL.cmdâ€ file
    $cmd = [string]::Format("{0} -CertStoreLocation {1} -FilePath {2} -Password (convertto-securestring -key (1..16) -string     {3})", "Import-PfxCertificate", $certStore, $certFile, $encCertPswd) 
        
    $cmd1 = [string]::Format("{0} -command {1}", $pspath, $cmd)
@@ -205,13 +202,13 @@ To make sure that the given enterprise cert is installed in all VMs created usin
    $cmd3 = [string]::Format("{0} -command {1}", $pspath, $cmd) 
    Add-Content $SetupFilePath "`n$cmd3" 
 
-8. Set above dynamically generated EnableSIL.cmd file to a ‘RunOnce’ Registry key in VHD to execute this above script for       every VM on first time start.
+8. Set above dynamically generated EnableSIL.cmd file to a â€˜RunOnceâ€™ Registry key in VHD to execute this above script for       every VM on first time start.
 
    HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce
    Set-ItemProperty "HKLM:\REMOTEPC\Microsoft\Windows\CurrentVersion\RunOnce\" -Name "PoshStart" -Value "C:\Scripts   \EnableSIL.cmd"
 
-• Part 2
-Load and edit Software Inventory Logging registry entries – 
+â€¢ Part 2
+Load and edit Software Inventory Logging registry entries â€“ 
 \HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\SoftwareInventoryLogging. 
 
 ----------------------------------------------------------------------------------------------------------------------------
@@ -230,12 +227,12 @@ Load and edit Software Inventory Logging registry entries –
 |in the future according to local system|			|:00:00		|				           |
 |time)					|			|		|				           |
 ----------------------------------------------------------------------------------------------------------------------------			
-9. Set the following Registry key values in VHD as following – 
+9. Set the following Registry key values in VHD as following â€“ 
    CollectionState		:1
    TargetUri			:Value received from Step 3
    CertificateThumbprint	:Value reeived from Step 1
 
-10. Run ‘Set-SILAggregator’ on the Aggregator server to register certificate thumbprint from step 1 above.
+10. Run â€˜Set-SILAggregatorâ€™ on the Aggregator server to register certificate thumbprint from step 1 above.
 11. Revert back the TrustedHosts settings updated in step 2.
 
 
@@ -249,22 +246,22 @@ The function to setup Software Inventory Logging in a Virtual Hard Disk.
 
 This function can be used to setup Software Inventory Logging in a Virtual Hard Disk so that all VMs created using this configured VHD has SIL configured.
 
-The practical uses for this are intended to cover both ‘gold image’ setup for wide deployment across data centers, as well as configuring end user images going from a premises to a cloud deployment.
+The practical uses for this are intended to cover both â€˜gold imageâ€™ setup for wide deployment across data centers, as well as configuring end user images going from a premises to a cloud deployment.
 
 Design:
 -------
 
-Configuring SIL in a VHD involves two parts –
-Part 1 – Ensure a given enterprise cert is installed on every VM created using the VHD to make SIL work on the VM.
-Part 2 – Start and configure Software Inventory Logging on every VM so that it sends inventory data to the Aggregation server at regular intervals.
+Configuring SIL in a VHD involves two parts â€“
+Part 1 â€“ Ensure a given enterprise cert is installed on every VM created using the VHD to make SIL work on the VM.
+Part 2 â€“ Start and configure Software Inventory Logging on every VM so that it sends inventory data to the Aggregation server at regular intervals.
 
-This scripts creates or modifies ‘%WINDIR%\Setup\Scripts\SetupComplete.cmd’ file in the VHD to enable and configure SIL. When a new VM is created using the VHD, the Software Inventory Logging is configured after Windows is installed, but before the logon screen appears.
+This scripts creates or modifies â€˜%WINDIR%\Setup\Scripts\SetupComplete.cmdâ€™ file in the VHD to enable and configure SIL. When a new VM is created using the VHD, the Software Inventory Logging is configured after Windows is installed, but before the logon screen appears.
 
 Prerequisites:
 --------------
 
 1. The client certificate type is .PFX and not of any other format.
-2. The remote computers have required SIL updates instaled – 
+2. The remote computers have required SIL updates instaled â€“ 
    a) For Windows Server 2012 R2
       KB3000850 Nov 2014 
       KB3060681 June 2015
@@ -285,7 +282,7 @@ Parameters:
 |3.	|CertificatePassword	      |SecureString|Y	    |Specifies the password for the imported PFX file in the form  | |	|			      |		   |	    |of a secure string.					   |
 |4.	|SilAggregatorServer	      |String	   |Y	    |Specifies the SIL Aggregator server. This server must have    | |	|			      |		   |	    |Software Inventory Logging Aggregator 1.0  installed.	   |
 |5.	|SilAggregatorServerCredential|PSCredential|N	    |Specifies the credentials that allow this script to connect to| |	|			      |		   | 	    |the remote SIL Aggregator server.				   |
-|	|			      |		   |	    |To obtain a PSCredential object, use the ‘Get-Credential’     | |	|			      |		   |	    |cmdlet. For more information, type Get-Help Get-Credential.   |
+|	|			      |		   |	    |To obtain a PSCredential object, use the â€˜Get-Credentialâ€™     | |	|			      |		   |	    |cmdlet. For more information, type Get-Help Get-Credential.   |
 ----------------------------------------------------------------------------------------------------------------------------
 
 Validations:
@@ -310,25 +307,25 @@ Validations:
 |9.	|The SIL Aggregator Server is not accessible.	    |Error in connecting to Aggregator server			   |
 |	|						    |[$SilAggregatorServer].			                   | 
 |10.	|VHD File is in use.				    |VHDFile is being used by another process.			   | 
-|11.	|VHD File doesn’t have Software Inventory Logging   |Software Inventory Logging feature is not found. The VHD may  |
+|11.	|VHD File doesnâ€™t have Software Inventory Logging   |Software Inventory Logging feature is not found. The VHD may  |
 |	|feature.					    |have the Operating System which does not support SIL. 	   |
 ---------------------------------------------------------------------------------------------------------------------------- 
 
 Tasks performed
 ---------------
 
-To make sure that the given enterprise cert is installed in all VMs created using the SIL configured VHD, this script modifies or add the ‘SetupComplete.cmd’ file on the VHD.
+To make sure that the given enterprise cert is installed in all VMs created using the SIL configured VHD, this script modifies or add the â€˜SetupComplete.cmdâ€™ file on the VHD.
 
 1. Validate if required SIL updates are installed or not in the given VHD. If not, then display a warning message.
 2. If required, Update TrustedHosts settings of Current Computer where this script is running by adding the Aggregator       Server to trusted hosts list.
-3. Copy input Enterprise cert file to VHD at “‘%WINDIR%\Setup\Scripts ”. This cert file will be installed at the time of    VM creation.
-4. Get the SIL Aggregation Server URI, ‘TargetURI’ value by running the PowerShell cmdlet ‘Get-SILAggregator’ remotely on    the Aggregator server.
+3. Copy input Enterprise cert file to VHD at â€œâ€˜%WINDIR%\Setup\Scripts â€. This cert file will be installed at the time of    VM creation.
+4. Get the SIL Aggregation Server URI, â€˜TargetURIâ€™ value by running the PowerShell cmdlet â€˜Get-SILAggregatorâ€™ remotely on    the Aggregator server.
 5. Get the certificate thumbprint value from the provided .PFX certificate file. 
 6. Encrypt the certificate password.
    $encCertPswd = ConvertFrom-SecureString -SecureString $CertificatePassword -Key (1..16)
 7. Add a PowerShell command in SetupComplete.cmd file to import certificate in \localmachine\MY (Local Computer ->       Personal) store on the new VM.
-8. Run ‘Set-SILAggregator’ on Aggregator server to register certificate thumbprint from step 5 above.
-9. Start and Configure SIL by adding two more commands in SetupComplete.cmd – 
+8. Run â€˜Set-SILAggregatorâ€™ on Aggregator server to register certificate thumbprint from step 5 above.
+9. Start and Configure SIL by adding two more commands in SetupComplete.cmd â€“ 
    a) Set-SilLLogging
    b) Start-SilLogging
 10. If changed, revert the TrustedHosts settings updated in step 2.
