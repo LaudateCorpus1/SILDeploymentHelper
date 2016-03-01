@@ -86,7 +86,7 @@ Server to trusted hosts list.
   
 
 ----------------------------
-
+----------------------------
 ##2. Enable-SILCollectorVHD
 ----------------------------
 This function will setup and enable Software Inventory Logging in a Virtual Hard Disk with Windows Server already installed.	
@@ -204,7 +204,8 @@ More information on configuration settings for SIL can be found here: https://te
 
 
 -------------------------------------
-##Enable-SILCollectorWithWindowsSetup
+-------------------------------------
+##3. Enable-SILCollectorWithWindowsSetup
 -------------------------------------
 This function will also setup Software Inventory Logging in a Virtual Hard Disk, but leverages the Windows automated setup process instead of registry keys.  One method, or the other, will be more appropriate depending on cloud deployment practices and infrastructure.
 
