@@ -162,7 +162,7 @@ Notes:
 
 
 
-###Task performed by Enable-SILCollectorVHD:
+###Tasks performed by Enable-SILCollectorVHD:
 -------------------------
 
 ####Part 1 
@@ -179,34 +179,34 @@ To make sure that the given enterprise cert is installed in all VMs created usin
    Copy-Item -Path $CertificateFilePath -Destination $remoteCert
  7. The script will prepare another .cmd file at run time to import certificate in \localmachine\MY (Local Computer ->       Personal) store on the current running system. This script will run automatically on the VM to install certificate using     required parameters. 
 
-   Set-Variable -Name psPath -Value "%windir%\System32\WindowsPowerShell\v1.0\powershell.exe" -Option Constant
-   Set-Variable -Name certStore -Value "cert:\localmachine\MY" -Option Constant
+   * Set-Variable -Name psPath -Value "%windir%\System32\WindowsPowerShell\v1.0\powershell.exe" -Option Constant
+   * Set-Variable -Name certStore -Value "cert:\localmachine\MY" -Option Constant
 
-   ## Encrypt SecureString Password for Certificate to be installed
-   $encCertPswd = ConvertFrom-SecureString -SecureString $CertificatePassword -Key (1..16) 
+   Encrypt SecureString Password for Certificate to be installed
+   * $encCertPswd = ConvertFrom-SecureString -SecureString $CertificatePassword -Key (1..16) 
 
-   ## Create a command to import certificate and write it on “EnableSIL.cmd” file
-   $cmd = [string]::Format("{0} -CertStoreLocation {1} -FilePath {2} -Password (convertto-securestring -key (1..16) -string     {3})", "Import-PfxCertificate", $certStore, $certFile, $encCertPswd) 
+   Create a command to import certificate and write it on “EnableSIL.cmd” file
+   * $cmd = [string]::Format("{0} -CertStoreLocation {1} -FilePath {2} -Password (convertto-securestring -key (1..16) -string     {3})", "Import-PfxCertificate", $certStore, $certFile, $encCertPswd) 
        
-   $cmd1 = [string]::Format("{0} -command {1}", $pspath, $cmd)
-   Add-Content $SetupFilePath $cmd1 
+   * $cmd1 = [string]::Format("{0} -command {1}", $pspath, $cmd)
+   * Add-Content $SetupFilePath $cmd1 
 
-   ## Add another command to remove the certificate file.
-   $cmd = [string]::Format("{0} {1} -ErrorAction Stop", "Remove-Item", $certFile) 
-   $cmd2 = [string]::Format("{0} -command {1}", $pspath, $cmd) 
-   Add-Content $SetupFilePath "`n$cmd2"
+   Add another command to remove the certificate file.
+   * $cmd = [string]::Format("{0} {1} -ErrorAction Stop", "Remove-Item", $certFile) 
+   * $cmd2 = [string]::Format("{0} -command {1}", $pspath, $cmd) 
+   * Add-Content $SetupFilePath "`n$cmd2"
 
-   ## Add another command to remove EnableSIL.cmd file.
-   $cmd = [string]::Format("{0} {1} -ErrorAction Stop", "Remove-Item", $filePath)  
-   $cmd3 = [string]::Format("{0} -command {1}", $pspath, $cmd) 
-   Add-Content $SetupFilePath "`n$cmd3" 
+   Add another command to remove EnableSIL.cmd file.
+   * $cmd = [string]::Format("{0} {1} -ErrorAction Stop", "Remove-Item", $filePath)  
+   * $cmd3 = [string]::Format("{0} -command {1}", $pspath, $cmd) 
+   * Add-Content $SetupFilePath "`n$cmd3" 
 
-8. Set above dynamically generated EnableSIL.cmd file to a ‘RunOnce’ Registry key in VHD to execute this above script for       every VM on first time start.
+  8.Sets above dynamically generated EnableSIL.cmd file to a ‘RunOnce’ Registry key in VHD to execute this above script for every VM on first time start.
 
-   HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce
-   Set-ItemProperty "HKLM:\REMOTEPC\Microsoft\Windows\CurrentVersion\RunOnce\" -Name "PoshStart" -Value "C:\Scripts   \EnableSIL.cmd"
+   * HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce
+   * Set-ItemProperty "HKLM:\REMOTEPC\Microsoft\Windows\CurrentVersion\RunOnce\" -Name "PoshStart" -Value "C:\Scripts\EnableSIL.cmd"
 
-• Part 2
+####Part 2
 Load and edit Software Inventory Logging registry entries – 
 \HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\SoftwareInventoryLogging. 
 
