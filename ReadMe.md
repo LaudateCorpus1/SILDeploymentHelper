@@ -220,12 +220,12 @@ Loads and edits Software Inventory Logging registry entries –
 More information on configuration settings for SIL can be found here: https://technet.microsoft.com/en-us/library/dn383584.aspx
 
 		
-9. Set the following Registry key values in VHD as following – 
-   CollectionState		:1
-   TargetUri			:Value received from Step 3
-   CertificateThumbprint	:Value reeived from Step 1
+9. Sets the following Registry key values in VHD as following – 
+   * CollectionState: 		1
+   * TargetUri:			Value received from Step 3 pt. 1
+   * CertificateThumbprint:	Value reeived from Step 1, pt. 1
 
-10. Run ‘Set-SILAggregator’ on the Aggregator server to register certificate thumbprint from step 1 above.
+10. Runs ‘Set-SILAggregator -addCertificateThumbprint’ on the Aggregator server to register certificate thumbprint from step 1 above.
 11. Revert back the TrustedHosts settings updated in step 2.
 
 
