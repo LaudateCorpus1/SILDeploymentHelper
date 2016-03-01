@@ -8,7 +8,7 @@ This module contains four scripts to help with deploying Windows Server Software
 Note: The term ‘Collector’ refers to the Windows Server feature Software Inventory Logging (SIL) component of the overall SIL framework.
 
 The first step is to copy this module down locally and then import it into a PowerShell console opened as an administrator using the Import-Module Cmdlet.  This can be done from any Windows client or server running a current version of PowerShell, and which is on your infrastructure's network.
-
+===
 #### Prerequisites
 1. PowerShell remoting must be enabled on both the SIL Aggregator server and the SIL Collector server.
 1. Current user must have Administrator rights on both the SIL Aggregator server and SIL Collector server.
@@ -33,9 +33,12 @@ The first step is to copy this module down locally and then import it into a Pow
 ##1. Enable-SILCollector
 --------------------------
 This function will enable SIL, on a remote server, to publish inventory data to a SIL Aggregator.  This script can be executed in a loop to configure SIL on multiple computers (Windows Servers only).
-
+===
 ####Example:
-
+    $targetMachineCredential = Get-Credential
+       
+    Set-SILAPollingAccount -computername Contoso1 -domain Contosodomain -user existingDomainUser -targetMachineCredential $targetMachineCredential  
+===
 ####Parameters:
 | Parameter Name      | Type        | Required  | Description |
 |:---|:---|:---|:---|
@@ -51,7 +54,7 @@ Notes:
  * To obtain a PSCredential object, use the ‘Get-Credential’ Cmdlet. For more information, type Get-Help Get-Credential.
  * For passwords use ConvertTo-SecureString Cmdlet.  Example: $pwd = ConvertTo-SecureString -String 'yourpassword' -AsPlainText -Force 
 
-
+===
 ####Error Messages:
 | Possible Errors      | Reason |
 |:---|:---|
@@ -65,7 +68,7 @@ Notes:
 |Error in connecting to remote server [$SilCollectorServer].|The SIL Collector server is not accessible.|
 
 
-
+===
 ####Tasks performed by Enable-SILCollector:
 1. Update TrustedHosts settings, if needed, of current Local Computer by adding the SIL Collector server and SIL Aggregator 
 Server to trusted hosts list.
@@ -94,14 +97,18 @@ This function will setup and enable Software Inventory Logging in a Virtual Hard
 This function can be used to setup Software Inventory Logging in a Virtual Hard Disk so that all VMs created using this VHD will have SIL already configured.
 
 The practical uses for this are intended to cover both ‘gold image’ setup for wide deployment across data centers, as well as configuring end user images for cloud deployment.
-
+===
 ####Design:
 Configuring SIL in a VHD involves two parts –
 * Part 1 – Install an enterprise cert on the VHD to be used for SIL communication with the SIL Aggregator.
 * Part 2 – Ensure, on every VM created from this VHD, SIL is started and configured to send inventory data to the SIL Aggregator server at regular intervals.
-
+===
 ####Example:
+    $targetMachineCredential = Get-Credential
+       
+    Set-SILAPollingAccount -computername Contoso1 -domain Contosodomain -user existingDomainUser -targetMachineCredential $targetMachineCredential
 
+===
 ####Parameters:
 | Parameter Name      | Type        | Required  | Description |
 |:---|:---|:---|:---|
@@ -116,7 +123,7 @@ Notes:
  * To obtain a PSCredential object, use the ‘Get-Credential’ Cmdlet. For more information, type Get-Help Get-Credential.
  * For passwords use ConvertTo-SecureString Cmdlet.  Example: $pwd = ConvertTo-SecureString -String 'yourpassword' -AsPlainText -Force 
 
-
+===
 ####Error Messages:
 | Possible Errors      | Reason |
 |:---|:---|
@@ -134,7 +141,7 @@ Notes:
 
 
 
-
+===
 ####Tasks performed by Enable-SILCollectorVHD:
 
 #####Part 1 
@@ -210,14 +217,14 @@ More information on configuration settings for SIL can be found here: https://te
 This function will also setup Software Inventory Logging in a Virtual Hard Disk, but leverages the Windows automated setup process instead of registry keys.  One method, or the other, will be more appropriate depending on cloud deployment practices and infrastructure.
 
 The practical uses for this are intended to cover both ‘gold image’ setup for wide deployment across data centers, as well as configuring end user images for cloud deployment.
-
+===
 ####Design:
 Configuring SIL in a VHD involves two parts –
 * Part 1 – Install an enterprise cert on the VHD to be used for SIL communication with the SIL Aggregator.
 * Part 2 – Ensure, on every VM created from this VHD, SIL is started and configured to send inventory data to the SIL Aggregator server at regular intervals.
 
 This function creates or modifies ‘%WINDIR%\Setup\Scripts\SetupComplete.cmd’ file in the VHD to enable and configure SIL. When a new VM is created using the VHD, the Software Inventory Logging is configured after Windows is installed, but before the logon screen appears.
-
+===
 ####Example:
     $targetMachineCredential = Get-Credential
        
@@ -235,7 +242,7 @@ Notes:
  * To obtain a PSCredential object, use the ‘Get-Credential’ Cmdlet. For more information, type Get-Help Get-Credential.
  * For passwords use ConvertTo-SecureString Cmdlet.  Example: $pwd = ConvertTo-SecureString -String 'yourpassword' -AsPlainText -Force 
 
-
+===
 ####Error Messages:
 | Possible Errors      | Reason |
 |:---|:---|
@@ -253,7 +260,7 @@ Notes:
 
 
 
-
+===
 ####Tasks performed by Enable-SILCollectorWithWindowsSetup
 
 To make sure that the given enterprise cert is installed on all VMs created using the SIL configured VHD, this script modifies or add the ‘SetupComplete.cmd’ file on the VHD.
@@ -281,13 +288,13 @@ To make sure that the given enterprise cert is installed on all VMs created usin
 This function sets just enough permissions for a domain user on a target Hyper-V host server to be used as the SILA Polling Account for that host. This function adds the provided domain user account into the Remote Management Users group, Hyper-V administrators group and gives read only access to the root\CIMV2 namespace for SILA polling to work.  
 
 Note: This does not add the host automatically to SILA polling operations.  That must be done separately.  This script can be executed in a loop to configure SIL on multiple computers (Windows Servers only).
-
+===
 ####Example:
 
     $targetMachineCredential = Get-Credential
        
     Set-SILAPollingAccount -computername Contoso1 -domain Contosodomain -user existingDomainUser -targetMachineCredential $targetMachineCredential  
-
+===
 ----------------
 References:
 ---------------
