@@ -28,7 +28,7 @@ The first step is to copy this module down locally and then import it into a Pow
 
 
 
---------------------------
+==========================
 --------------------------
 ##1. Enable-SILCollector
 --------------------------
@@ -85,7 +85,7 @@ Server to trusted hosts list.
 
   
 
-----------------------------
+===========================
 ----------------------------
 ##2. Enable-SILCollectorVHD
 ----------------------------
@@ -203,7 +203,7 @@ More information on configuration settings for SIL can be found here: https://te
 
 
 
--------------------------------------
+===========================
 -------------------------------------
 ##3. Enable-SILCollectorWithWindowsSetup
 -------------------------------------
@@ -219,7 +219,9 @@ Configuring SIL in a VHD involves two parts –
 This function creates or modifies ‘%WINDIR%\Setup\Scripts\SetupComplete.cmd’ file in the VHD to enable and configure SIL. When a new VM is created using the VHD, the Software Inventory Logging is configured after Windows is installed, but before the logon screen appears.
 
 ####Example:
-
+    $targetMachineCredential = Get-Credential
+       
+    Set-SILAPollingAccount -computername Contoso1 -domain Contosodomain -user existingDomainUser -targetMachineCredential $targetMachineCredential  
 
 ####Parameters:
 | Parameter Name      | Type        | Required  | Description |
