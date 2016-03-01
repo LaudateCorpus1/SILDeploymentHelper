@@ -5,15 +5,12 @@ This module contains four scripts to help with deploying Windows Server Software
  3. Enable-SILCollectorWithWindowsSetup
  4. Set-SILAPollingAccount
 
-
 #####Note:
 The term ‘Collector’ refers to the Windows Server feature Software Inventory Logging (SIL) component of the overall SIL framework.
 
 The first step is to copy this module down locally and then import it into a PowerShell console opened as an administrator using the Import-Module Cmdlet.  This can be done from any Windows client or server running a current version of PowerShell, and which is on your infrastructure's network.
 
 ### Prerequisites
-
-
 1. PowerShell remoting must be enabled on both the SIL Aggregator server and the SIL Collector server.
 1. Current user must have Administrator rights on both the SIL Aggregator server and SIL Collector server.
 1. Current user must be able to execute SIL Aggregator PowerShell cmdlets remotely from current server. This script will run the following two SIL Aggregator cmdlets remotely – 
@@ -28,10 +25,12 @@ The first step is to copy this module down locally and then import it into a Pow
   1. For Windows Server 2008 R2 SP1
     * KB3109118
 1. The client certificate type is .PFX and not of any other format.
+2. For functions (2 & 3) that modify a VHD, administrator access to the server that holds the VHD is required. 
+
+
 
 
 ##1. Enable-SILCollector
-
 This function will enable SIL, on a remote server, to publish inventory data to a SIL Aggregator.  This script can be executed in a loop to configure SIL on multiple computers (Windows Servers only).
 
 ### Prerequisites
