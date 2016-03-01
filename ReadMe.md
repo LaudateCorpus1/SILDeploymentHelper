@@ -5,12 +5,13 @@ This module contains four scripts to help with deploying Windows Server Software
  3. Enable-SILCollectorWithWindowsSetup
  4. Set-SILAPollingAccount
 
-#####Note:
+Note:
+
 The term ‘Collector’ refers to the Windows Server feature Software Inventory Logging (SIL) component of the overall SIL framework.
 
 The first step is to copy this module down locally and then import it into a PowerShell console opened as an administrator using the Import-Module Cmdlet.  This can be done from any Windows client or server running a current version of PowerShell, and which is on your infrastructure's network.
 
-### Prerequisites
+#### Prerequisites
 1. PowerShell remoting must be enabled on both the SIL Aggregator server and the SIL Collector server.
 1. Current user must have Administrator rights on both the SIL Aggregator server and SIL Collector server.
 1. Current user must be able to execute SIL Aggregator PowerShell cmdlets remotely from current server. This script will run the following two SIL Aggregator cmdlets remotely – 
@@ -34,9 +35,9 @@ The first step is to copy this module down locally and then import it into a Pow
 ##1. Enable-SILCollector
 This function will enable SIL, on a remote server, to publish inventory data to a SIL Aggregator.  This script can be executed in a loop to configure SIL on multiple computers (Windows Servers only).
 
+####Example:
 
-
-###Parameters:
+####Parameters:
 | Parameter Name      | Type        | Required  | Description |
 |:---|:---|:---|:---|
 | SilCollectorServer     | String  |Y	 |Specifies a remote server to be enabled and configured for Software Inventory Logging.|	 
@@ -52,7 +53,7 @@ Notes:
  * For passwords use ConvertTo-SecureString Cmdlet.  Example: $pwd = ConvertTo-SecureString -String 'yourpassword' -AsPlainText -Force 
 
 
-###Error Messages:
+####Error Messages:
 | Possible Errors      | Reason |
 |:---|:---|
 |Error!!! login using admin credentials.|Script is executing from non-admin PS prompt.|
@@ -66,7 +67,7 @@ Notes:
 
 
 
-###Task performed by Enable-SILCollector:
+####Tasks performed by Enable-SILCollector:
 1. Update TrustedHosts settings, if needed, of current Local Computer by adding the SIL Collector server and SIL Aggregator 
 Server to trusted hosts list.
 2. Copy the pfx client certificate to SIL Collector server.
