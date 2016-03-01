@@ -13,17 +13,17 @@ The first step is to copy this module down locally and then import it into a Pow
 
 ## Enable-SILCollector
 
-This function will enable SIL, on a remote server, to publish inventory data to a SIL Aggregator.  This script can be executed in a loop to configure SIL in multiple computers.
+This function will enable SIL, on a remote server, to publish inventory data to a SIL Aggregator.  This script can be executed in a loop to configure SIL on multiple computers (Windows Servers only).
 
 ### Prerequisites
 
 
 1. PowerShell remoting must be enabled on both the SIL Aggregator server and the SIL Collector server.
 1. Current user must have Administrator rights on both the SIL Aggregator server and SIL Collector server.
-1. Current user must be able to execute SIL Aggregator PowerShell cmdlets remotely from current server. This script will run    two following SIL Aggregator cmdlets remotely – 
+1. Current user must be able to execute SIL Aggregator PowerShell cmdlets remotely from current server. This script will run the following two SIL Aggregator cmdlets remotely – 
   1. Get-SILAggregator – to get the ‘TargetUri’ value
   1. Set-SILAggregator -  to set the certificate thumbprint 
-1. The SIL Collector server has required SIL updates instaled
+1. The SIL Collector server must have the required updates installed
   1. For Windows Server 2012 R2
     * KB3000850, Nov 2014 
     * KB3060681, June 2015
