@@ -1,9 +1,9 @@
 #SIL Deployment Helper Module
 This module contains four scripts to help with deploying Windows Server Software Inventory Logging Aggregator (SIL) at scale.
-1.Enable-SILCollector
-2.Enable-SILCollectorVHD
-3.Enable-SILCollectorWithWindowsSetup
-4.Set-SILAPollingAccount
+1. Enable-SILCollector
+2. Enable-SILCollectorVHD
+3. Enable-SILCollectorWithWindowsSetup
+4. Set-SILAPollingAccount
 
 
 #####Note:
