@@ -66,7 +66,7 @@ Notes:
 
 
 
-###Task performed by Script:
+###Task performed by Enable-SILCollector:
 -------------------------
 
 1. Update TrustedHosts settings, if needed, of current Local Computer by adding the SIL Collector server and SIL Aggregator 
@@ -126,50 +126,40 @@ Part 2 – Modify the SIL Registry keys in the VHD to enable and configure SIL.
 1. The client certificate type is .PFX and not of any other format.
 
 
-
-
 ###Parameters:
 ------------------
 
-----------------------------------------------------------------------------------------------------------------------------
-|Sr. No.|Parameter                    |Name Type   |Required|Description						   |
-----------------------------------------------------------------------------------------------------------------------------
-|1.	|VirtualHardDiskPath          |String	   |Y	    |Specifies the path for a Virtual Hard Disk to be configured.  | |	|			      |		   |	    |BothVHD and VHDX formats are valid.			   |
-|	|		    	      |		   |	    |The Windows operating system contained within this VHD must   | |	|			      |		   |	    |have SIL feature installed.				   |
-|2.	|CertificateFilePath	      |string	   |Y	    |Specifies the path for the PFX file.			   |
-|3.	|CertificatePassword	      |SecureString|Y	    |Specifies the password for the imported PFX file in the form  | |	|			      |		   |	    |of a secure string.					   |
-|4.	|SilAggregatorServer	      |String	   |Y	    |Specifies the SIL Aggregator server. This server must have    | |	|			      |		   |	    |Software Inventory Logging Aggregator 1.0  installed.	   |
-|5.	|SilAggregatorServerCredential|PSCredential|N	    |Specifies the credentials that allow this script to connect to| |	|			      |		   | 	    |the remote SIL Aggregator server.				   |
-|	|			      |		   |	    |To obtain a PSCredential object, use the ‘Get-Credential’     | |	|			      |		   |	    |cmdlet. For more information, type Get-Help Get-Credential.   |
-----------------------------------------------------------------------------------------------------------------------------
+| Parameter Name      | Type        | Required  | Description |
+|:---|:---|:---|:---|
+|VirtualHardDiskPath|String|Y|Specifies the path for a Virtual Hard Disk to be configured. BothVHD and VHDX formats are valid. The Windows Server operating system contained within this VHD must Have SIL feature installed (see prerequisites)|	 
+|SilAggregatorServer|String|Y|Specifies the SIL Aggregator server. This server must have Software Inventory Logging Aggregator installed|
+|SilAggregatorServerCredential|PSCredential|N|Specifies the credentials that allow this script to connect to the remote SIL Aggregator server.|
+|CertificateFilePath|String|Y|Specifies the directory path for the PFX file.|
+|CertificatePassword|SecureString|Y|Specifies the password for the imported PFX file in the form of a secure string. **Passwords must be passed in Secure String format**|
 
-Validations:
-------------
-----------------------------------------------------------------------------------------------------------------------------
-|Sr. No.|Validations					    |Error Message                                                 |
-----------------------------------------------------------------------------------------------------------------------------
-|1.	|Script is executing from non admin PS prompt.	    |Error!!! login using admin credentials.			   |
-|2.	|The client certificate type is not .PFX format.    |Cannot validate argument on parameter 'CertificateFilePath'.  | |	|						    |The certificate must be of '.PFX' format.			   | 
-|3.	|Certificate Path on Local System is not valid 	    |Error!!! [$CertificateFilePath] is invalid.                   |
-|	|					            |or accessible.						   |
-|4.	|Certificate password is incorrect.		    |Certificate Password is Incorrect.				   |
-|5.	|The VHD does not have required SIL updates. 	    |Required Windows Update(s) are not installed on               |
-|	|						    |VirtualHardDisk.	                                           |
-|6.	|The VHD File Path type is not .vhd/.vhdx format.   |Cannot validate argument on parameter VirtualHardDiskPath.    |
-|	|						    |The VHD File Path must be of '.vhd or .vhdx' format.          | 
-|7.	|The SIL Aggregator Server only have Software	    |Error!!! Only Reporting Module is found on 		   |	
-|	|Inventory Logging Reporting Module installed.	    |[$SilAggregatorServer].Install Software Inventory Logging     | |	|						    |Aggregator.	                                           |
-|8.	|The SIL Aggregator Server does not have Software   |Error!!! Software Inventory Logging Aggregator 1.0 is not     |
-|	|Inventory Logging Aggregator installed. 	    |installed on [$SilAggregatorServer].			   |
-|9.	|The SIL Aggregator Server is not accessible.	    |Error in connecting to Aggregator server			   |
-|	|						    |[$SilAggregatorServer].			                   | 
-|10.	|VHD File is in use.				    |VHDFile is being used by another process.			   | 
-|11.	|VHD File doesn’t have Software Inventory Logging   |Software Inventory Logging feature is not found. The VHD may  |
-|	|feature.					    |have the Operating System which does not support SIL. 	   |
-----------------------------------------------------------------------------------------------------------------------------
 
-Tasks performed:
----------------- 
+Notes: 
+ * To obtain a PSCredential object, use the ‘Get-Credential’ Cmdlet. For more information, type Get-Help Get-Credential.
+ * For passwords use ConvertTo-SecureString Cmdlet.  Example: $pwd = ConvertTo-SecureString -String 'yourpassword' -AsPlainText -Force 
+
+
+###Error Messages:
+----------------------
+| Possible Errors      | Reason |
+|:---|:---|
+|Error!!! login using admin credentials.|Script is executing from non admin PS prompt.|
+|Error!!! [$CertificateFilePath] is invalid.|Certificate Path on Local System is not valid or accessible.|
+|Cannot validate argument on parameter CertificateFilePath. The certificate must be of '.PFX' format.|The client certificate type is not .PFX format.|
+|Certificate Password is Incorrect.|Certificate password is incorrect.|
+|Required Windows Update(s) are not installed on [$SilCollectorServer].|The SIL Collector server does not have required SIL updates installed.|
+|Error!!! Software Inventory Logging Aggregator 1.0 is not installed on [$AggregatorServer].| The Server does not have Software Inventory Logging Aggregator installed.|
+|Error in connecting to Aggregator server[$AggregatorServer].|The SIL Aggregator Server is not accessible.|
+|Error in connecting to remote server [$SilCollectorServer].|The SIL Collector server is not accessible.|
+
+
+
+###Task performed by Enable-SILCollectorVHD:
+-------------------------
 
 • Part 1 
 To make sure that the given enterprise cert is installed in all VMs created using the SIL configured VHD, this script modifies the ‘RunOnce’ registry key of the VHD, and sets another dynamically generated script to execute when a Administrator user logs in to the VM first time.
