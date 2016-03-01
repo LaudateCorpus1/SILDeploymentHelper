@@ -88,23 +88,21 @@ Server to trusted hosts list.
 ----------------------------
 
 ##2. Enable-SILCollectorVHD
+----------------------------
 This function will setup and enable Software Inventory Logging in a Virtual Hard Disk with Windows Server already installed.	
 
 This function can be used to setup Software Inventory Logging in a Virtual Hard Disk so that all VMs created using this VHD will have SIL already configured.
 
 The practical uses for this are intended to cover both ‘gold image’ setup for wide deployment across data centers, as well as configuring end user images for cloud deployment.
 
-###Design:
--------
+####Design:
 Configuring SIL in a VHD involves two parts –
 * Part 1 – Install an enterprise cert on the VHD to be used for SIL communication with the SIL Aggregator.
 * Part 2 – Ensure, on every VM created from this VHD, SIL is started and configured to send inventory data to the SIL Aggregator server at regular intervals.
 
+####Example:
 
-
-###Parameters:
-------------------
-
+####Parameters:
 | Parameter Name      | Type        | Required  | Description |
 |:---|:---|:---|:---|
 |VirtualHardDiskPath|String|Y|Specifies the path for a Virtual Hard Disk to be configured. BothVHD and VHDX formats are valid. The Windows Server operating system contained within this VHD must Have SIL feature installed (see prerequisites)|	 
@@ -119,8 +117,7 @@ Notes:
  * For passwords use ConvertTo-SecureString Cmdlet.  Example: $pwd = ConvertTo-SecureString -String 'yourpassword' -AsPlainText -Force 
 
 
-###Error Messages:
-----------------------
+####Error Messages:
 | Possible Errors      | Reason |
 |:---|:---|
 |Error!!! login using admin credentials.|Script is executing from non-admin PS prompt.|
@@ -138,10 +135,9 @@ Notes:
 
 
 
-###Tasks performed by Enable-SILCollectorVHD:
--------------------------
+####Tasks performed by Enable-SILCollectorVHD:
 
-####Part 1 
+#####Part 1 
 To make sure that the given enterprise cert is installed in all VMs created using the SIL configured VHD, this script modifies the ‘RunOnce’ registry key of the VHD, and sets another dynamically generated script to execute when a Administrator user logs in to the VM first time.
  1. Checks the certificate Password and get the certificate thumbprint value from the provided .PFX certificate file.
  2. Updates Trusted Hosts settings of Local Computer by adding the Aggregator Server to trusted hosts list, if required.
@@ -153,7 +149,7 @@ To make sure that the given enterprise cert is installed in all VMs created usin
    REG LOAD 'HKLM\REMOTEPC' $RemoteReg
  6. Copy cert file to VHD at “\Scripts”
    Copy-Item -Path $CertificateFilePath -Destination $remoteCert
- 7. The script will prepare another .cmd file at run time to import certificate in \localmachine\MY (Local Computer ->       Personal) store on the current running system. This script will run automatically on the VM to install certificate using     required parameters. 
+ 7. The script will prepare another .cmd file at run time to import certificate in \localmachine\MY (Local Computer -> Personal) store on the current running system. This script will run automatically on the VM to install certificate using required parameters. 
 
    * Set-Variable -Name psPath -Value "%windir%\System32\WindowsPowerShell\v1.0\powershell.exe" -Option Constant
    * Set-Variable -Name certStore -Value "cert:\localmachine\MY" -Option Constant
@@ -182,7 +178,7 @@ To make sure that the given enterprise cert is installed in all VMs created usin
    * HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce
    * Set-ItemProperty "HKLM:\REMOTEPC\Microsoft\Windows\CurrentVersion\RunOnce\" -Name "PoshStart" -Value "C:\Scripts\EnableSIL.cmd"
 
-####Part 2
+#####Part 2
 Loads and edits Software Inventory Logging registry entries – 
 \HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\SoftwareInventoryLogging. 
 
@@ -207,17 +203,14 @@ More information on configuration settings for SIL can be found here: https://te
 
 
 
-
+-------------------------------------
 ##Enable-SILCollectorWithWindowsSetup
-
-
+-------------------------------------
 This function will also setup Software Inventory Logging in a Virtual Hard Disk, but leverages the Windows automated setup process instead of registry keys.  One method, or the other, will be more appropriate depending on cloud deployment practices and infrastructure.
 
 The practical uses for this are intended to cover both ‘gold image’ setup for wide deployment across data centers, as well as configuring end user images for cloud deployment.
 
-###Design:
--------
-
+####Design:
 Configuring SIL in a VHD involves two parts –
 * Part 1 – Install an enterprise cert on the VHD to be used for SIL communication with the SIL Aggregator.
 * Part 2 – Ensure, on every VM created from this VHD, SIL is started and configured to send inventory data to the SIL Aggregator server at regular intervals.
@@ -226,9 +219,7 @@ This function creates or modifies ‘%WINDIR%\Setup\Scripts\SetupComplete.cmd’
 
 
 
-Parameters:
------------
-
+####Parameters:
 ----------------------------------------------------------------------------------------------------------------------------
 |Sr. No.|Parameter                    |Name Type   |Required|Description						   |
 ----------------------------------------------------------------------------------------------------------------------------
