@@ -55,7 +55,7 @@ Notes:
 ----------------------
 | Possible Errors      | Reason |
 |:---|:---|
-|Error!!! login using admin credentials.|Script is executing from non admin PS prompt.|
+|Error!!! login using admin credentials.|Script is executing from non-admin PS prompt.|
 |Error!!! [$CertificateFilePath] is invalid.|Certificate Path on Local System is not valid or accessible.|
 |Cannot validate argument on parameter CertificateFilePath. The certificate must be of '.PFX' format.|The client certificate type is not .PFX format.|
 |Certificate Password is Incorrect.|Certificate password is incorrect.|
@@ -147,14 +147,18 @@ Notes:
 ----------------------
 | Possible Errors      | Reason |
 |:---|:---|
-|Error!!! login using admin credentials.|Script is executing from non admin PS prompt.|
+|Error!!! login using admin credentials.|Script is executing from non-admin PS prompt.|
 |Error!!! [$CertificateFilePath] is invalid.|Certificate Path on Local System is not valid or accessible.|
 |Cannot validate argument on parameter CertificateFilePath. The certificate must be of '.PFX' format.|The client certificate type is not .PFX format.|
 |Certificate Password is Incorrect.|Certificate password is incorrect.|
-|Required Windows Update(s) are not installed on [$SilCollectorServer].|The SIL Collector server does not have required SIL updates installed.|
+|Required Windows Update(s) are not installed on VirtualHardDisk.|The VHD does not have required SIL updates installed.|
+|Cannot validate argument on parameter VirtualHardDiskPath. The VHD File Path must be of '.vhd or .vhdx' format.|The VHD File Path type is not .vhd/.vhdx format.|
+|Error!!! Only Reporting Module is found on [$SilAggregatorServer]. Install Software Inventory Logging Aggregator|The SIL Aggregator Server only has Software Inventory Logging Reporting Module installed.|
 |Error!!! Software Inventory Logging Aggregator 1.0 is not installed on [$AggregatorServer].| The Server does not have Software Inventory Logging Aggregator installed.|
 |Error in connecting to Aggregator server[$AggregatorServer].|The SIL Aggregator Server is not accessible.|
-|Error in connecting to remote server [$SilCollectorServer].|The SIL Collector server is not accessible.|
+|VHDFile is being used by another process.|VHD File is in use.|
+|Software Inventory Logging feature is not found. The VHD may have the Operating System which does not support SIL.|VHD File doesn’t have Software Inventory Logging feature.|
+
 
 
 
