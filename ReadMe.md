@@ -93,8 +93,7 @@ run Add-SILVMHost command to add the host for Polling.  See Set-SILAPollingAccou
 
 
 
-#2. Enable-SILCollectorVHD
-
+##2. Enable-SILCollectorVHD
 
 This function will setup and enable Software Inventory Logging in a Virtual Hard Disk with Windows Server already installed.	
 
@@ -102,31 +101,34 @@ This function can be used to setup Software Inventory Logging in a Virtual Hard 
 
 The practical uses for this are intended to cover both ‘gold image’ setup for wide deployment across data centers, as well as configuring end user images for cloud deployment.
 
-Design:
+###Design:
 -------
 Configuring SIL in a VHD involves two parts –
 Part 1 – Ensure a given enterprise cert is installed on every VM created using the VHD to make SIL work on the VM.
 Part 2 – Modify the SIL Registry keys in the VHD to enable and configure SIL.
 
-Prerequisites:
+###Prerequisites:
 --------------
-1. PowerShell remoting must be enabled on the SIL Aggregator server.
-2. Current user must have Administrator rights the SIL Aggregator server.
-3. Current user must be able to execute SIL Aggregator PowerShell cmdlets remotely from current server. This script will run    two following SIL Aggregator cmdlets remotely – 
-   a) Get-SILAggregator – to get the ‘TargetUri’ value
-   b) Set-SILAggregator -  to set the certificate thumbprint 
-4. The VHD has required SIL updates instaled – 
-   a) For Windows Server 2012 R2
-      KB3000850 Nov 2014 
-      KB3060681 June 2015
-   b) For Windows Server 2012 
-      KB3119938 
-   c) For Windows Server 2008 R2 SP1
-      KB3109118
-5. The client certificate type is .PFX and not of any other format.
+
+1. PowerShell remoting must be enabled on both the SIL Aggregator server and the SIL Collector server.
+1. Current user must have Administrator rights on both the SIL Aggregator server and SIL Collector server.
+1. Current user must be able to execute SIL Aggregator PowerShell cmdlets remotely from current server. This script will run the following two SIL Aggregator cmdlets remotely – 
+  1. Get-SILAggregator – to get the ‘TargetUri’ value
+  1. Set-SILAggregator -  to set the certificate thumbprint 
+1. The SIL Collector server must have the required updates installed
+  1. For Windows Server 2012 R2
+    * KB3000850, Nov 2014 
+    * KB3060681, June 2015
+  1. For Windows Server 2012 
+    * KB3119938 
+  1. For Windows Server 2008 R2 SP1
+    * KB3109118
+1. The client certificate type is .PFX and not of any other format.
 
 
-Parameters:
+
+
+###Parameters:
 ------------------
 
 ----------------------------------------------------------------------------------------------------------------------------
