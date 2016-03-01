@@ -36,7 +36,9 @@ This function will enable SIL, on a remote server, to publish inventory data to 
 
 ===
 ####Example:
-    $targetMachineCredential = Get-Credential
+    $pwd = ConvertTo-SecureString -String 'yourcertificatepassword' -AsPlainText -Force
+    
+    Enable-SilCollector.ps1 -SilCollectorServer "yourremoteservertobeinventoried" -SilCollectorServerCredential "domain\user" -SilAggregatorServer "yourSILAggregatorMachineName" -SilAggregatorServerCredential "domain\user" -CertificateFilePath "\\yourshare\yourvalidSSLcertificate.pfx" -CertificatePassword $pwd
        
     Set-SILAPollingAccount -computername Contoso1 -domain Contosodomain -user existingDomainUser -targetMachineCredential $targetMachineCredential  
     
@@ -108,9 +110,9 @@ Configuring SIL in a VHD involves two parts –
 
 ===
 ####Example:
-    $targetMachineCredential = Get-Credential
-       
-    Set-SILAPollingAccount -computername Contoso1 -domain Contosodomain -user existingDomainUser -targetMachineCredential $targetMachineCredential
+    $pwd = ConvertTo-SecureString -String 'yourcertificatepassword' -AsPlainText -Force
+    
+    Enable-SilCollector.ps1 -SilCollectorServer "yourremoteservertobeinventoried" -SilCollectorServerCredential "domain\user" -SilAggregatorServer "yourSILAggregatorMachineName" -SilAggregatorServerCredential "domain\user" -CertificateFilePath "\\yourshare\yourvalidSSLcertificate.pfx" -CertificatePassword $pwd
 
 ===
 ####Parameters:
@@ -232,9 +234,9 @@ This function creates or modifies ‘%WINDIR%\Setup\Scripts\SetupComplete.cmd’
 
 ===
 ####Example:
-    $targetMachineCredential = Get-Credential
-       
-    Set-SILAPollingAccount -computername Contoso1 -domain Contosodomain -user existingDomainUser -targetMachineCredential $targetMachineCredential  
+    $pwd = ConvertTo-SecureString -String 'yourcertificatepassword' -AsPlainText -Force
+    
+    Enable-SilCollector.ps1 -SilCollectorServer "yourremoteservertobeinventoried" -SilCollectorServerCredential "domain\user" -SilAggregatorServer "yourSILAggregatorMachineName" -SilAggregatorServerCredential "domain\user" -CertificateFilePath "\\yourshare\yourvalidSSLcertificate.pfx" -CertificatePassword $pwd
     
 ===
 ####Parameters:
