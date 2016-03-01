@@ -5,9 +5,7 @@ This module contains four scripts to help with deploying Windows Server Software
  3. Enable-SILCollectorWithWindowsSetup
  4. Set-SILAPollingAccount
 
-Note:
-
-The term ‘Collector’ refers to the Windows Server feature Software Inventory Logging (SIL) component of the overall SIL framework.
+Note: The term ‘Collector’ refers to the Windows Server feature Software Inventory Logging (SIL) component of the overall SIL framework.
 
 The first step is to copy this module down locally and then import it into a PowerShell console opened as an administrator using the Import-Module Cmdlet.  This can be done from any Windows client or server running a current version of PowerShell, and which is on your infrastructure's network.
 
@@ -33,6 +31,7 @@ The first step is to copy this module down locally and then import it into a Pow
 
 --------------------------
 ##1. Enable-SILCollector
+--------------------------
 This function will enable SIL, on a remote server, to publish inventory data to a SIL Aggregator.  This script can be executed in a loop to configure SIL on multiple computers (Windows Servers only).
 
 ####Example:
