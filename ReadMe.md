@@ -1,4 +1,4 @@
-#Important Note:
+#Note:
 The term ‘Collector’ refers to the Windows Server feature Software Inventory Logging (SIL) component of the overall SIL framework.
 
 # Enable-SILCollector
