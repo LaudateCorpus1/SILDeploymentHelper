@@ -30,30 +30,13 @@ The first step is to copy this module down locally and then import it into a Pow
 
 
 
+--------------------------
 ##1. Enable-SILCollector
 This function will enable SIL, on a remote server, to publish inventory data to a SIL Aggregator.  This script can be executed in a loop to configure SIL on multiple computers (Windows Servers only).
 
-### Prerequisites
 
-
-1. PowerShell remoting must be enabled on both the SIL Aggregator server and the SIL Collector server.
-1. Current user must have Administrator rights on both the SIL Aggregator server and SIL Collector server.
-1. Current user must be able to execute SIL Aggregator PowerShell cmdlets remotely from current server. This script will run the following two SIL Aggregator cmdlets remotely – 
-  1. Get-SILAggregator – to get the ‘TargetUri’ value
-  1. Set-SILAggregator -  to set the certificate thumbprint 
-1. The SIL Collector server must have the required updates installed
-  1. For Windows Server 2012 R2
-    * KB3000850, Nov 2014 
-    * KB3060681, June 2015
-  1. For Windows Server 2012 
-    * KB3119938 
-  1. For Windows Server 2008 R2 SP1
-    * KB3109118
-1. The client certificate type is .PFX and not of any other format.
 
 ###Parameters:
-------------------
-
 | Parameter Name      | Type        | Required  | Description |
 |:---|:---|:---|:---|
 | SilCollectorServer     | String  |Y	 |Specifies a remote server to be enabled and configured for Software Inventory Logging.|	 
@@ -70,7 +53,6 @@ Notes:
 
 
 ###Error Messages:
-----------------------
 | Possible Errors      | Reason |
 |:---|:---|
 |Error!!! login using admin credentials.|Script is executing from non-admin PS prompt.|
@@ -85,8 +67,6 @@ Notes:
 
 
 ###Task performed by Enable-SILCollector:
--------------------------
-
 1. Update TrustedHosts settings, if needed, of current Local Computer by adding the SIL Collector server and SIL Aggregator 
 Server to trusted hosts list.
 2. Copy the pfx client certificate to SIL Collector server.
@@ -105,10 +85,9 @@ Server to trusted hosts list.
 
   
 
-
+----------------------------
 
 ##2. Enable-SILCollectorVHD
-
 This function will setup and enable Software Inventory Logging in a Virtual Hard Disk with Windows Server already installed.	
 
 This function can be used to setup Software Inventory Logging in a Virtual Hard Disk so that all VMs created using this VHD will have SIL already configured.
