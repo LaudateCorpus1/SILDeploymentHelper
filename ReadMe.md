@@ -302,6 +302,20 @@ Note: This does not add the host automatically to SILA polling operations.  That
     $targetMachineCredential = Get-Credential
        
     Set-SILAPollingAccount -computername Contoso1 -domain Contosodomain -user existingDomainUser -targetMachineCredential $targetMachineCredential  
+    
+===
+####Parameters:
+| Parameter Name      | Type        | Required  | Description |
+|:---|:---|:---|:---|
+|computername|String|Y|Specifies a remote Hyper-V host to have a domain account added for SIL Aggregator polling.|	 
+|domain|String|Y|Specifies the Active Directory domain for which the remote server and the domain account belong.|
+|user|String|Y|Specifies the existing domain user to be added to the Hyper-V host for SIL Aggregator polling.|
+|targetMachineCredential|PSCredential|N|Specifies the credentials to use to on the Hyper-V host to add the user and set the permissions|
+
+Notes: 
+ * To obtain a PSCredential object, use the ‘Get-Credential’ Cmdlet. For more information, type Get-Help Get-Credential.
+ * For passwords use ConvertTo-SecureString Cmdlet.  Example: $pwd = ConvertTo-SecureString -String 'yourpassword' -AsPlainText -Force
+
 ===
 ----------------
 References:
