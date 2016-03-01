@@ -1,13 +1,21 @@
-#Note:
+#SIL Deployment Helper Module
+This module contains four scripts to help with deploying Windows Server Software Inventory Logging Aggregator (SIL) at scale.
+1.Enable-SILCollector
+2.Enable-SILCollectorVHD
+3.Enable-SILCollectorWithWindowsSetup
+4.Set-SILAPollingAccount
+
+
+#####Note:
 The term ‘Collector’ refers to the Windows Server feature Software Inventory Logging (SIL) component of the overall SIL framework.
 
-# Enable-SILCollector
+## Enable-SILCollector
 
 The function to setup a remote SIL Collector for publishing inventory data to Aggregator.
 
 This function will be used by HOSTERS to simplify the SIL and SIL Aggregator usage by helping him enable and configure SIL Collectors and SIL Aggregator and to get accurate inventory data.
 
-## Prerequisites
+### Prerequisites
 
 
 1. PowerShell remoting must be enabled on both the SIL Aggregator server and the SIL Collector server.
