@@ -11,7 +11,7 @@ The term ‘Collector’ refers to the Windows Server feature Software Inventory
 
 The first step is to copy this module down locally and then import it into a PowerShell console opened as an administrator using the Import-Module Cmdlet.  This can be done from any Windows client or server running a current version of PowerShell, and which is on your infrastructure's network.
 
-## Enable-SILCollector
+##1. Enable-SILCollector
 
 This function will enable SIL, on a remote server, to publish inventory data to a SIL Aggregator.  This script can be executed in a loop to configure SIL on multiple computers (Windows Servers only).
 
@@ -43,10 +43,12 @@ This function will enable SIL, on a remote server, to publish inventory data to 
 |SilAggregatorServer|String|Y|Specifies the SIL Aggregator server. This server must have Software Inventory Logging Aggregator installed|
 |SilAggregatorServerCredential|PSCredential|N|Specifies the credentials that allow this script to connect to the remote SIL Aggregator server.|
 |CertificateFilePath|String|Y|Specifies the directory path for the PFX file.|
-|CertificatePassword|SecureString|Y|Specifies the password for the imported PFX file in the form of a secure string.|
+|CertificatePassword|SecureString|Y|Specifies the password for the imported PFX file in the form of a secure string. **Passwords must be passed in Secure String format**|
 
 
-Notes: To obtain a PSCredential object, use the ‘Get-Credential’ Cmdlet. For more information, type Get-Help Get-Credential.
+Notes: 
+*To obtain a PSCredential object, use the ‘Get-Credential’ Cmdlet. For more information, type Get-Help Get-Credential.
+*For passwords use ConvertTo-SecureString Cmdlet.  Example: $pwd = ConvertTo-SecureString -String 'yourpassword' -AsPlainText -Force 
 
 
 ###Error Messages:
@@ -73,8 +75,8 @@ Server to trusted hosts list.
 3. Install Certificate at  \localmachine\MY (Local Computer -> Personal) at SIL Collector server.
 4. Get the ‘TargetURI’ value by running the PowerShell cmdlet ‘Get-SILAggregator’ on SIL Aggregator server .
 5. Get the certificate thumbprint value from the provided .PFX certificate file.
-6. Confgure SIL on SIL Collector server by – 
-   1) Run ‘Set-SILLogging’ with parameters – ‘TargetUri’, ‘CertificateThumbprint’ and ‘TimeOfDay’
+6. Configure SIL on SIL Collector server by – 
+   1) Run ‘Set-SILLogging’ with parameters – ‘TargetUri’ and ‘CertificateThumbprint’
    2) Run ‘Start-SILLogging’ 
 7. Run ‘Set-SILAggregator’ on SIL Aggregator server to register certificate thumbprint from step 5 above.
 8. Delete the PFX certificate which was copied earlier from SIL Collector server.
