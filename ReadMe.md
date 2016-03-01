@@ -33,7 +33,7 @@ This function will enable SIL, on a remote server, to publish inventory data to 
     * KB3109118
 1. The client certificate type is .PFX and not of any other format.
 
-Parameters:
+###Parameters:
 ------------------
 
 | Parameter Name      | Type        | Required  | Description |
@@ -49,15 +49,22 @@ Parameters:
 Notes: To obtain a PSCredential object, use the ‘Get-Credential’ Cmdlet. For more information, type Get-Help Get-Credential.
 
 
-Error Messages:
+###Error Messages:
 ----------------------
-| Possible Errors      | Validations |
+| Possible Errors      | Reason |
 |:---|:---|
 |Error!!! login using admin credentials.|Script is executing from non admin PS prompt.|
 |Error!!! [$CertificateFilePath] is invalid.|Certificate Path on Local System is not valid or accessible.|
+|Cannot validate argument on parameter CertificateFilePath. The certificate must be of '.PFX' format.|The client certificate type is not .PFX format.|
+|Certificate Password is Incorrect.|Certificate password is incorrect.|
+|Required Windows Update(s) are not installed on [$SilCollectorServer].|The SIL Collector server does not have required SIL updates installed.|
+|Error!!! Software Inventory Logging Aggregator 1.0 is not installed on [$AggregatorServer].| The Server does not have Software Inventory Logging Aggregator installed.|
+|Error in connecting to Aggregator server[$AggregatorServer].|The SIL Aggregator Server is not accessible.|
+|Error in connecting to remote server [$SilCollectorServer].|The SIL Collector server is not accessible.|
 
 
-Task performed by Script:
+
+###Task performed by Script:
 -------------------------
 
 1. Update TrustedHosts settings, if needed, of current Local Computer by adding the SIL Collector server and SIL Aggregator 
@@ -74,12 +81,12 @@ Server to trusted hosts list.
 9. Validate the SIL configuration by running Publish-SILData cmdlet on remote computer.
 10. Revert the TrustedHosts settings updated in step 1.
 
-Out of Scope:
+####Out of Scope:
 -------------
-1. Polling account setup. The script will not setup any poll account for parent HOST server. The hoster has to explicitely 
-run Add-SILVMHost command to add the host for Polling.
+1. Polling account setup. The script will not setup any polling account for parent HOST server. The user must 
+run Add-SILVMHost command to add the host for Polling.  See Set-SILAPollingAccount in this module.
 2. Logging – The output will be displayed to console only. No logging will be done in either text file or event viewer. 
-3. Localization.
+
   
 
 
