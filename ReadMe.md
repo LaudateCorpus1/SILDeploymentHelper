@@ -11,6 +11,25 @@ The term ‘Collector’ refers to the Windows Server feature Software Inventory
 
 The first step is to copy this module down locally and then import it into a PowerShell console opened as an administrator using the Import-Module Cmdlet.  This can be done from any Windows client or server running a current version of PowerShell, and which is on your infrastructure's network.
 
+### Prerequisites
+
+
+1. PowerShell remoting must be enabled on both the SIL Aggregator server and the SIL Collector server.
+1. Current user must have Administrator rights on both the SIL Aggregator server and SIL Collector server.
+1. Current user must be able to execute SIL Aggregator PowerShell cmdlets remotely from current server. This script will run the following two SIL Aggregator cmdlets remotely – 
+  1. Get-SILAggregator – to get the ‘TargetUri’ value
+  1. Set-SILAggregator -  to set the certificate thumbprint 
+1. The SIL Collector server must have the required updates installed
+  1. For Windows Server 2012 R2
+    * KB3000850, Nov 2014 
+    * KB3060681, June 2015
+  1. For Windows Server 2012 
+    * KB3119938 
+  1. For Windows Server 2008 R2 SP1
+    * KB3109118
+1. The client certificate type is .PFX and not of any other format.
+
+
 ##1. Enable-SILCollector
 
 This function will enable SIL, on a remote server, to publish inventory data to a SIL Aggregator.  This script can be executed in a loop to configure SIL on multiple computers (Windows Servers only).
@@ -83,11 +102,7 @@ Server to trusted hosts list.
 9. Validate the SIL configuration by running Publish-SILData cmdlet on remote computer.
 10. Revert the TrustedHosts settings updated in step 1.
 
-####Out of Scope:
--------------
-1. Polling account setup. The script will not setup any polling account for parent HOST server. The user must 
-run Add-SILVMHost command to add the host for Polling.  See Set-SILAPollingAccount in this module.
-2. Logging – The output will be displayed to console only. No logging will be done in either text file or event viewer. 
+
 
   
 
@@ -107,23 +122,6 @@ Configuring SIL in a VHD involves two parts –
 * Part 1 – Install an enterprise cert on the VHD to be used for SIL communication with the SIL Aggregator.
 * Part 2 – Ensure, on every VM created from this VHD, SIL is started and configured to send inventory data to the SIL Aggregator server at regular intervals.
 
-###Prerequisites:
---------------
-
-1. PowerShell remoting must be enabled on both the SIL Aggregator server and the SIL Collector server.
-1. Current user must have Administrator rights on both the SIL Aggregator server and SIL Collector server.
-1. Current user must be able to execute SIL Aggregator PowerShell cmdlets remotely from current server. This script will run the following two SIL Aggregator cmdlets remotely – 
-  1. Get-SILAggregator – to get the ‘TargetUri’ value
-  1. Set-SILAggregator -  to set the certificate thumbprint 
-1. The SIL Collector server must have the required updates installed
-  1. For Windows Server 2012 R2
-    * KB3000850, Nov 2014 
-    * KB3060681, June 2015
-  1. For Windows Server 2012 
-    * KB3119938 
-  1. For Windows Server 2008 R2 SP1
-    * KB3109118
-1. The client certificate type is .PFX and not of any other format.
 
 
 ###Parameters:
@@ -246,20 +244,9 @@ Configuring SIL in a VHD involves two parts –
 * Part 1 – Install an enterprise cert on the VHD to be used for SIL communication with the SIL Aggregator.
 * Part 2 – Ensure, on every VM created from this VHD, SIL is started and configured to send inventory data to the SIL Aggregator server at regular intervals.
 
-This scripts creates or modifies ‘%WINDIR%\Setup\Scripts\SetupComplete.cmd’ file in the VHD to enable and configure SIL. When a new VM is created using the VHD, the Software Inventory Logging is configured after Windows is installed, but before the logon screen appears.
+This function creates or modifies ‘%WINDIR%\Setup\Scripts\SetupComplete.cmd’ file in the VHD to enable and configure SIL. When a new VM is created using the VHD, the Software Inventory Logging is configured after Windows is installed, but before the logon screen appears.
 
-Prerequisites:
---------------
 
-1. The client certificate type is .PFX and not of any other format.
-2. The remote computers have required SIL updates instaled – 
-   a) For Windows Server 2012 R2
-      KB3000850 Nov 2014 
-      KB3060681 June 2015
-   b) For Windows Server 2012 
-      KB3119938 
-   c) For Windows Server 2008 R2 SP1
-      KB3109118
 
 Parameters:
 -----------
