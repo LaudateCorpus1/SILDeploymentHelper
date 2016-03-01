@@ -9,7 +9,6 @@ Note: The term ‘Collector’ refers to the Windows Server feature Software Inv
 
 The first step is to copy this module down locally and then import it into a PowerShell console opened as an administrator using the Import-Module Cmdlet.  This can be done from any Windows client or server running a current version of PowerShell, and which is on your infrastructure's network.
 
-===
 #### Prerequisites
 1. PowerShell remoting must be enabled on both the SIL Aggregator server and the SIL Collector server.
 1. Current user must have Administrator rights on both the SIL Aggregator server and SIL Collector server.
