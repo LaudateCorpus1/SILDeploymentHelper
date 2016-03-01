@@ -60,7 +60,7 @@ Notes:
 |Cannot validate argument on parameter CertificateFilePath. The certificate must be of '.PFX' format.|The client certificate type is not .PFX format.|
 |Certificate Password is Incorrect.|Certificate password is incorrect.|
 |Required Windows Update(s) are not installed on [$SilCollectorServer].|The SIL Collector server does not have required SIL updates installed.|
-|Error!!! Software Inventory Logging Aggregator 1.0 is not installed on [$AggregatorServer].| The Server does not have Software Inventory Logging Aggregator installed.|
+|Error!!! Software Inventory Logging Aggregator 1.0 is not installed on [$AggregatorServer].| The SILA Server does not have Software Inventory Logging Aggregator installed.|
 |Error in connecting to Aggregator server[$AggregatorServer].|The SIL Aggregator Server is not accessible.|
 |Error in connecting to remote server [$SilCollectorServer].|The SIL Collector server is not accessible.|
 
@@ -154,7 +154,7 @@ Notes:
 |Required Windows Update(s) are not installed on VirtualHardDisk.|The VHD does not have required SIL updates installed.|
 |Cannot validate argument on parameter VirtualHardDiskPath. The VHD File Path must be of '.vhd or .vhdx' format.|The VHD File Path type is not .vhd/.vhdx format.|
 |Error!!! Only Reporting Module is found on [$SilAggregatorServer]. Install Software Inventory Logging Aggregator|The SIL Aggregator Server only has Software Inventory Logging Reporting Module installed.|
-|Error!!! Software Inventory Logging Aggregator 1.0 is not installed on [$AggregatorServer].| The Server does not have Software Inventory Logging Aggregator installed.|
+|Error!!! Software Inventory Logging Aggregator 1.0 is not installed on [$AggregatorServer].| The SILA Server does not have Software Inventory Logging Aggregator installed.|
 |Error in connecting to Aggregator server[$AggregatorServer].|The SIL Aggregator Server is not accessible.|
 |VHDFile is being used by another process.|VHD File is in use.|
 |Software Inventory Logging feature is not found. The VHD may have the Operating System which does not support SIL.|VHD File doesn’t have Software Inventory Logging feature.|
@@ -165,19 +165,19 @@ Notes:
 ###Task performed by Enable-SILCollectorVHD:
 -------------------------
 
-• Part 1 
+####Part 1 
 To make sure that the given enterprise cert is installed in all VMs created using the SIL configured VHD, this script modifies the ‘RunOnce’ registry key of the VHD, and sets another dynamically generated script to execute when a Administrator user logs in to the VM first time.
-1. Check the certificate Password and get the certificate thumbprint value from the provided .PFX certificate file.
-2. Update TrustedHosts settings of Local Computer by adding the Aggregator Server to trusted hosts list, if required.
-3. Check if Software Inventory Logging Aggregator is installed on Aggregator Server and get the ‘TargetURI’ value by       running the PowerShell cmdlet ‘Get-SILAggregator’ remotely on Aggregator server. 
-4. Mount the VHD
+ 1. Checks the certificate Password and get the certificate thumbprint value from the provided .PFX certificate file.
+ 2. Updates Trusted Hosts settings of Local Computer by adding the Aggregator Server to trusted hosts list, if required.
+ 3. Checks if Software Inventory Logging Aggregator is installed on Aggregator Server and get the ‘TargetURI’ value by running the PowerShell cmdlet ‘Get-SILAggregator’ remotely on Aggregator server. 
+ 4. Mounts the VHD
    Mount-VHD -Path $VirtualHardDiskPath
-5. Load Registry from VHD 
+ 5. Loads Registry from VHD 
    $RemoteReg=$DriveLetter + ":\Windows\System32\config\Software"
    REG LOAD 'HKLM\REMOTEPC' $RemoteReg
-6. Copy cert file to VHD at “\Scripts”
+ 6. Copy cert file to VHD at “\Scripts”
    Copy-Item -Path $CertificateFilePath -Destination $remoteCert
-7. The script will prepare another .cmd file at run time to import certificate in \localmachine\MY (Local Computer ->       Personal) store on the current running system. This script will run automatically on the VM to install certificate using     required parameters. 
+ 7. The script will prepare another .cmd file at run time to import certificate in \localmachine\MY (Local Computer ->       Personal) store on the current running system. This script will run automatically on the VM to install certificate using     required parameters. 
 
    Set-Variable -Name psPath -Value "%windir%\System32\WindowsPowerShell\v1.0\powershell.exe" -Option Constant
    Set-Variable -Name certStore -Value "cert:\localmachine\MY" -Option Constant
