@@ -47,8 +47,8 @@ This function will enable SIL, on a remote server, to publish inventory data to 
 
 
 Notes: 
-*To obtain a PSCredential object, use the ‘Get-Credential’ Cmdlet. For more information, type Get-Help Get-Credential.
-*For passwords use ConvertTo-SecureString Cmdlet.  Example: $pwd = ConvertTo-SecureString -String 'yourpassword' -AsPlainText -Force 
+ * To obtain a PSCredential object, use the ‘Get-Credential’ Cmdlet. For more information, type Get-Help Get-Credential.
+ * For passwords use ConvertTo-SecureString Cmdlet.  Example: $pwd = ConvertTo-SecureString -String 'yourpassword' -AsPlainText -Force 
 
 
 ###Error Messages:
