@@ -36,21 +36,18 @@ This function will enable SIL, on a remote server, to publish inventory data to 
 Parameters:
 ------------------
 
-----------------------------------------------------------------------------------------------------------------------------
-|Sr. No.|Parameter Name	              |Type        |Required|Description		                		   |
-----------------------------------------------------------------------------------------------------------------------------
-|1.	|SilCollectorServer	      |string      |Y	    |Specifies a remote server to be enabled and configured for	   |	|	|	   	      	      |            |        |Software Inventory Logging.                                   |
-|2.	|SilCollectorServerCredential |PSCredential|N       |Specifies the credentials that allow this script to connect to| |	|			      |		   |        |the remote SIL Collector server.                              |
-|	|			      |		   | 	    |To obtain a PSCredential object, use the ‘Get-Credential’     |	|	|		    	      |            |        |cmdlet.		                                           |
-|	|			      |		   |	    |For more information, type Get-Help Get-Credential.           |
-|3.	|SilAggregatorServer	      |String      |Y	    |Specifies the SIL Aggregator server.                          |
-|	|			      |		   |        |This server must have Software Inventory Logging Aggregator   |	|	|		   	      |	           |        |1.0 installed.                                                |
-|4.	|SilAggregatorServerCredential|PSCredential|N	    |Specifies the credentials that allow this script to connect to| |	|			      |		   |	    |the remote SIL Aggregator server.                             |
-|	|			      |		   |	    |To obtain a PSCredential object, use the ‘Get-Credential’     |	|	|		   	      |	           |	    |cmdlet.                                                       |
-|	|			      |		   |	    |For more information, type Get-Help Get-Credential.           |
-|5.	|CertificateFilePath	      |String	   |Y	    |Specifies the path for the PFX file.                          |
-|6.	|CertificatePassword	      |SecureString|Y	    |Specifies the password for the imported PFX file in the form  |	|	|		   	      |        	   |        |of a secure string.		                           |
-----------------------------------------------------------------------------------------------------------------------------
+| Parameter Name      | Type        | Required  | Description |
+|:---|:---|:---|:---|
+| SilCollectorServer     | String  |Y	 |Specifies a remote server to be enabled and configured for Software Inventory Logging.|	 
+|SilCollectorServerCredential|PSCredential|N|Specifies the credentials that allow this script to connect to the remote SIL Collector server.|
+|SilAggregatorServer|String|Y|Specifies the SIL Aggregator server. This server must have Software Inventory Logging Aggregator installed|
+|SilAggregatorServerCredential|PSCredential|N|Specifies the credentials that allow this script to connect to the remote SIL Aggregator server.|
+|CertificateFilePath|String|Y|Specifies the directory path for the PFX file.|
+|CertificatePassword|SecureString|Y|Specifies the password for the imported PFX file in the form of a secure string.|
+
+
+Note: To obtain a PSCredential object, use the ‘Get-Credential’ Cmdlet. For more information, type Get-Help Get-Credential.
+
 
 Validations:
 ----------------------
