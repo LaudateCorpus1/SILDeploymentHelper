@@ -93,17 +93,14 @@ run Add-SILVMHost command to add the host for Polling.  See Set-SILAPollingAccou
 
 
 
+#2. Enable-SILCollectorVHD
 
 
-=========================
-2. Enable-SILCollectorVHD
-=========================
+This function will setup and enable Software Inventory Logging in a Virtual Hard Disk with Windows Server already installed.	
 
-The function to setup Software Inventory Logging in a Virtual Hard Disk.	
+This function can be used to setup Software Inventory Logging in a Virtual Hard Disk so that all VMs created using this configured VHD will have SIL already configured.
 
-This function can be used to setup Software Inventory Logging in a Vurtual Hard Disk so that all VMs created using this configured VHD has SIL configured.
-
-The practical uses for this are intended to cover both ‘gold image’ setup for wide deployment across data centers, as well as configuring end user images going from a premises to a cloud deployment.
+The practical uses for this are intended to cover both ‘gold image’ setup for wide deployment across data centers, as well as configuring end user images for cloud deployment.
 
 Design:
 -------
