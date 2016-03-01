@@ -104,8 +104,8 @@ The practical uses for this are intended to cover both ‘gold image’ setup fo
 ###Design:
 -------
 Configuring SIL in a VHD involves two parts –
-Part 1 – Install an enterprise cert on the VHD to be used for SIL communication with the SIL Aggregator.
-Part 2 – Ensure, on every VM created from this VHD, SIL is started and configured to send inventory data to the SIL Aggregator server at regular intervals.
+* Part 1 – Install an enterprise cert on the VHD to be used for SIL communication with the SIL Aggregator.
+* Part 2 – Ensure, on every VM created from this VHD, SIL is started and configured to send inventory data to the SIL Aggregator server at regular intervals.
 
 ###Prerequisites:
 --------------
@@ -243,8 +243,8 @@ The practical uses for this are intended to cover both ‘gold image’ setup fo
 -------
 
 Configuring SIL in a VHD involves two parts –
-Part 1 – Install an enterprise cert on the VHD to be used for SIL communication with the SIL Aggregator.
-Part 2 – Ensure, on every VM created from this VHD, SIL is started and configured to send inventory data to the SIL Aggregator server at regular intervals.
+* Part 1 – Install an enterprise cert on the VHD to be used for SIL communication with the SIL Aggregator.
+* Part 2 – Ensure, on every VM created from this VHD, SIL is started and configured to send inventory data to the SIL Aggregator server at regular intervals.
 
 This scripts creates or modifies ‘%WINDIR%\Setup\Scripts\SetupComplete.cmd’ file in the VHD to enable and configure SIL. When a new VM is created using the VHD, the Software Inventory Logging is configured after Windows is installed, but before the logon screen appears.
 
