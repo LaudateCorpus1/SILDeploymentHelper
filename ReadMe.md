@@ -36,9 +36,9 @@ This function will enable SIL, on a remote server, to publish inventory data to 
 
 ===
 ####Example:
-    PS C:\$pwd = ConvertTo-SecureString -String 'yourcertificatepassword' -AsPlainText -Force
+    $pwd = ConvertTo-SecureString -String 'yourcertificatepassword' -AsPlainText -Force
     
-    PS C:\Enable-SilCollector -SilCollectorServer "yourremoteservertobeinventoried" -SilCollectorServerCredential "domain\user" -SilAggregatorServer "yourSILAggregatorMachineName" -SilAggregatorServerCredential "domain\user" -CertificateFilePath "\\yourshare\yourvalidSSLcertificate.pfx" -CertificatePassword $pwd
+    Enable-SilCollector -SilCollectorServer "yourremoteservertobeinventoried" -SilCollectorServerCredential "domain\user" -SilAggregatorServer "yourSILAggregatorMachineName" -SilAggregatorServerCredential "domain\user" -CertificateFilePath "\\yourshare\yourvalidSSLcertificate.pfx" -CertificatePassword $pwd
     
 ===
 ####Parameters:
@@ -108,9 +108,9 @@ Configuring SIL in a VHD involves two parts –
 
 ===
 ####Example:
-    PS C:\$pwd = ConvertTo-SecureString -String 'yourcertificatepassword' -AsPlainText -Force
+    $pwd = ConvertTo-SecureString -String 'yourcertificatepassword' -AsPlainText -Force
     
-    PS C:\Enable-SilCollector -VirtualHardDiskPath "\yourdirectory\share" -SilAggregatorServer "yourSILAggregatorMachineName" -SilAggregatorServerCredential "domain\user" -CertificateFilePath "\\yourshare\yourvalidSSLcertificate.pfx" -CertificatePassword $pwd
+    Enable-SilCollectorVHD -VirtualHardDiskPath "\yourdirectory\share" -SilAggregatorServer "yourSILAggregatorMachineName" -SilAggregatorServerCredential "domain\user" -CertificateFilePath "\\yourshare\yourvalidSSLcertificate.pfx" -CertificatePassword $pwd
 
 ===
 ####Parameters:
@@ -232,9 +232,9 @@ This function creates or modifies ‘%WINDIR%\Setup\Scripts\SetupComplete.cmd’
 
 ===
 ####Example:
-    PS C:\$pwd = ConvertTo-SecureString -String 'yourcertificatepassword' -AsPlainText -Force
+    $pwd = ConvertTo-SecureString -String 'yourcertificatepassword' -AsPlainText -Force
     
-    PS C:\Enable-SilCollector -VirtualHardDiskPath "\yourdirectory\share" -SilAggregatorServer "yourSILAggregatorMachineName" -SilAggregatorServerCredential "domain\user" -CertificateFilePath "\\yourshare\yourvalidSSLcertificate.pfx" -CertificatePassword $pwd
+    Enable-SilCollectorWithWindowsSetup -VirtualHardDiskPath "\yourdirectory\share" -SilAggregatorServer "yourSILAggregatorMachineName" -SilAggregatorServerCredential "domain\user" -CertificateFilePath "\\yourshare\yourvalidSSLcertificate.pfx" -CertificatePassword $pwd
     
 ===
 ####Parameters:
@@ -299,9 +299,9 @@ Note: This does not add the host automatically to SILA polling operations.  That
 ===
 ####Example:
 
-    PS C:\$targetMachineCredential = Get-Credential
+    $targetMachineCredential = Get-Credential
        
-    PS C:\Set-SILAPollingAccount -computername Contoso1 -domain Contosodomain -user existingDomainUser -targetMachineCredential $targetMachineCredential  
+    Set-SILAPollingAccount -computername Contoso1 -domain Contosodomain -user existingDomainUser -targetMachineCredential $targetMachineCredential  
     
 ===
 ####Parameters:
