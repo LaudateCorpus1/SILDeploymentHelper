@@ -36,11 +36,9 @@ This function will enable SIL, on a remote server, to publish inventory data to 
 
 ===
 ####Example:
-    $pwd = ConvertTo-SecureString -String 'yourcertificatepassword' -AsPlainText -Force
+    PS C:\$pwd = ConvertTo-SecureString -String 'yourcertificatepassword' -AsPlainText -Force
     
-    Enable-SilCollector.ps1 -SilCollectorServer "yourremoteservertobeinventoried" -SilCollectorServerCredential "domain\user" -SilAggregatorServer "yourSILAggregatorMachineName" -SilAggregatorServerCredential "domain\user" -CertificateFilePath "\\yourshare\yourvalidSSLcertificate.pfx" -CertificatePassword $pwd
-       
-    Set-SILAPollingAccount -computername Contoso1 -domain Contosodomain -user existingDomainUser -targetMachineCredential $targetMachineCredential  
+    PS C:\Enable-SilCollector.ps1 -SilCollectorServer "yourremoteservertobeinventoried" -SilCollectorServerCredential "domain\user" -SilAggregatorServer "yourSILAggregatorMachineName" -SilAggregatorServerCredential "domain\user" -CertificateFilePath "\\yourshare\yourvalidSSLcertificate.pfx" -CertificatePassword $pwd
     
 ===
 ####Parameters:
@@ -110,9 +108,9 @@ Configuring SIL in a VHD involves two parts –
 
 ===
 ####Example:
-    $pwd = ConvertTo-SecureString -String 'yourcertificatepassword' -AsPlainText -Force
+    PS C:\$pwd = ConvertTo-SecureString -String 'yourcertificatepassword' -AsPlainText -Force
     
-    Enable-SilCollector.ps1 -SilCollectorServer "yourremoteservertobeinventoried" -SilCollectorServerCredential "domain\user" -SilAggregatorServer "yourSILAggregatorMachineName" -SilAggregatorServerCredential "domain\user" -CertificateFilePath "\\yourshare\yourvalidSSLcertificate.pfx" -CertificatePassword $pwd
+    PS C:\Enable-SilCollector.ps1 -SilCollectorServer "yourremoteservertobeinventoried" -SilCollectorServerCredential "domain\user" -SilAggregatorServer "yourSILAggregatorMachineName" -SilAggregatorServerCredential "domain\user" -CertificateFilePath "\\yourshare\yourvalidSSLcertificate.pfx" -CertificatePassword $pwd
 
 ===
 ####Parameters:
@@ -234,9 +232,9 @@ This function creates or modifies ‘%WINDIR%\Setup\Scripts\SetupComplete.cmd’
 
 ===
 ####Example:
-    $pwd = ConvertTo-SecureString -String 'yourcertificatepassword' -AsPlainText -Force
+    PS C:\$pwd = ConvertTo-SecureString -String 'yourcertificatepassword' -AsPlainText -Force
     
-    Enable-SilCollector.ps1 -SilCollectorServer "yourremoteservertobeinventoried" -SilCollectorServerCredential "domain\user" -SilAggregatorServer "yourSILAggregatorMachineName" -SilAggregatorServerCredential "domain\user" -CertificateFilePath "\\yourshare\yourvalidSSLcertificate.pfx" -CertificatePassword $pwd
+    PS C:\Enable-SilCollector.ps1 -SilCollectorServer "yourremoteservertobeinventoried" -SilCollectorServerCredential "domain\user" -SilAggregatorServer "yourSILAggregatorMachineName" -SilAggregatorServerCredential "domain\user" -CertificateFilePath "\\yourshare\yourvalidSSLcertificate.pfx" -CertificatePassword $pwd
     
 ===
 ####Parameters:
@@ -301,9 +299,9 @@ Note: This does not add the host automatically to SILA polling operations.  That
 ===
 ####Example:
 
-    $targetMachineCredential = Get-Credential
+    PS C:\$targetMachineCredential = Get-Credential
        
-    Set-SILAPollingAccount -computername Contoso1 -domain Contosodomain -user existingDomainUser -targetMachineCredential $targetMachineCredential  
+    PS C:\Set-SILAPollingAccount -computername Contoso1 -domain Contosodomain -user existingDomainUser -targetMachineCredential $targetMachineCredential  
     
 ===
 ####Parameters:
