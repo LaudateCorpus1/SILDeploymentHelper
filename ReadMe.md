@@ -272,10 +272,10 @@ To make sure that the given enterprise cert is installed on all VMs created usin
 
 
 
-
-======================================
+==============================
+------------------------------
 ##4. Set-SILAPollingAccount
-======================================
+------------------------------
 This function sets just enough permissions for a domain user on a target Hyper-V host server to be used as the SILA Polling Account for that host. This function adds the provided domain user account into the Remote Management Users group, Hyper-V administrators group and gives read only access to the root\CIMV2 namespace for SILA polling to work.  
 
 Note: This does not add the host automatically to SILA polling operations.  That must be done separately.  This script can be executed in a loop to configure SIL on multiple computers (Windows Servers only).
@@ -286,9 +286,9 @@ Note: This does not add the host automatically to SILA polling operations.  That
        
     Set-SILAPollingAccount -computername Contoso1 -domain Contosodomain -user existingDomainUser -targetMachineCredential $targetMachineCredential  
 
-------------
+----------------
 References:
------------- 
+---------------
 
 Software Inventory Logging Aggregator
 https://technet.microsoft.com/en-us/library/mt572043.aspx
